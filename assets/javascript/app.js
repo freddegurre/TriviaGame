@@ -3,7 +3,7 @@ var myQuestions = ["What country won the most medals 2014", "Where was the olymp
 var optionsArray = [["Russia", "USA", "Norway"], ["Germany","Spain","France"], ["Italy", "Canada", "Norway"]];
 var correctAnswers = ["Russia", "France", "Norway"];
 var questionCounter = 0;
-
+var imgsrc = ["https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif", "https://media.giphy.com/media/3oD3YooLLYg0AfOPdK/giphy.gif", "https://media.giphy.com/media/3o6EhQhTudJRYRnO5G/giphy.gif"]
 var correctGuess = "";
 var wrongGuess = "";
 
@@ -51,14 +51,15 @@ function newGame() {
         var choise = ($(this).attr("data-option"));
         // if the choise matches give a win. 
         if (choise === correctAnswers[questionCounter]) {
-            
+            //clears the options div of options 
             $("#optionsDIv").empty();
-            rightResponse()
+            //calls function of right response 
+            rightResponse(imgsrc[questionCounter]);
             // add one to questionCounter 
             questionCounter++;
             // add one to correct guess
             correctGuess++;
-            // start new game. after 5 seconds 
+            // next question. after 5 seconds 
             setTimeout(newGame, 5000);
         }
     });
@@ -72,7 +73,7 @@ function newGame() {
         rightShow.addClass("right-image");
     
         // give img a source to get the image from 
-        rightShow.attr("src", "https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif");
+        rightShow.attr("src", imgsrc);
 
         // inside the options div, show the image 
         $("#optionsDIv").append(rightShow);
