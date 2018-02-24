@@ -17,3 +17,33 @@ span {
     background-color: rgb(65, 93, 252);
     padding: 5px;
 }
+
+#start {
+    background-color: rgb(4, 24, 136);
+    margin: 0 auto;
+    width: 500px;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 180px;
+}
+
+.option {
+    background-color: rgb(4, 24, 136);
+    margin: 0 auto;
+    width: 400px;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+
+.gif-image {
+    height: 300px;
+    margin-top: 30px;
+}
+
+.scoreBox {
+    height: 50px;
+    width: 80px;
+    background-color: black;
+    float: left;
+}

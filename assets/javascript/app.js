@@ -54,12 +54,8 @@ function newGame() {
         if (choise === correctAnswers[questionCounter]) {
             //clears the options div of options 
             $("#optionsDIv").empty();
-            //create a h4 for to disolay the sucsess text. 
-            var answer = $("<h4>")
-            // give it the value of the correct answer
-            answer.text(correctAnswers[questionCounter]);
-            // Print a sucsess message!
-            $("#question").html("Well done the right answer is " + correctAnswers[questionCounter]);
+            //show status of guess
+            guess ("Well done the right answer is ")
             //calls function of right response 
             Response(rightImgsrc[questionCounter]);
             // add one to questionCounter 
@@ -67,44 +63,56 @@ function newGame() {
             // add one to correct guess
             correctGuess++;
             // next question. after 5 seconds 
-            setTimeout(newGame, 3000);
+            setTimeout(newGame, 5000);
         }
-        else {
+       else if (choise !== correctAnswers[questionCounter]){
             //clears the options div of options
             $("#optionsDIv").empty();
             //show that they guessed wrong
-            var answer = $("<h4>")
-            // give it the value of the correct answer
-            answer.text(correctAnswers[questionCounter]);
-            // Print a sucsess message!
-            $("#question").html("Nooo thats wrong! The right answer is " + correctAnswers[questionCounter]);
+            guess ("Nooo thats wrong! The right answer is ")
             //show image they where wrong 
-             Response(wrongImgsrc[questionCounter]);
+            Response(wrongImgsrc[questionCounter]);
             // add one to questionCounter 
             questionCounter++;
             // add one to correct guess
             wrongGuess++;
             // next question. after 5 seconds 
-            setTimeout(newGame, 3000);
+            setTimeout(newGame, 5000);
         }
-        if (questionCounter === myQuestions.length +1) {
-            //clears the options div of options
-            $("#optionsDIv").empty();
-            // create new elememet inside of the var
-        var score = $("<p>");
-        
-        // add class option to p element. 
-        score.addClass("score");
-       
-        // decide what content that is going to be reated inside the new element 
-        score.html(correctGuess + wrongGuess );
+        if (questionCounter === myQuestions.length) {
+            // call the result function. 
+           result(" Number of Right guess ", " Number of Wrong guess ")
+           $("#start").show();
+        } 
     
-        
-        // push the new created content to a parent object in HTML
-        $("#optionsDIv").append(score);
-           
-        }
     });
+
+//-------Global-----Functions
+
+    // Show current score
+    function result (rightMessage, wrongMessage) {
+        //empty the div of current content
+       // $("#optionsDIv").empty();
+        //store a p in results var
+        var results = $("<p>");
+        //give css class score to results 
+        //results.addClass("score");
+        //Show the message for number of right and wrong guess 
+        results.html("<p>" + rightMessage +  correctGuess + "</p>" + "<p>" + wrongMessage + wrongGuess +"</p>");
+        // push it to the html div
+        $("#optionsDIv").append(results);
+
+    }
+
+    // function to show response of guess 
+    function guess (string) {
+        //show that they guessed wrong
+        var answer = $("<h4>")
+        // give it the value of the correct answer
+        answer.text(string + correctAnswers[questionCounter]);
+        // Print a sucsess message!
+        $("#question").html(answer);
+    }
 
 
     //function to show imgae in options div section
