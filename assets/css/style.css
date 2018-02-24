@@ -13,10 +13,7 @@ body {
     border-radius: 4px;
 }
 
-span {
-    background-color: rgb(65, 93, 252);
-    padding: 5px;
-}
+
 
 #start {
     background-color: rgb(4, 24, 136);
@@ -25,6 +22,9 @@ span {
     padding: 10px;
     border-radius: 4px;
     margin-top: 180px;
+}
+#start:hover { 
+    background-color: rgba(4, 24, 136, 0.644);
 }
 
 .option {
@@ -35,15 +35,20 @@ span {
     border-radius: 4px;
     margin-top: 30px;
 }
+.option:hover { 
+    background-color: rgba(4, 24, 136, 0.644);
+}
 
 .gif-image {
     height: 300px;
     margin-top: 30px;
 }
 
-.scoreBox {
-    height: 50px;
-    width: 80px;
-    background-color: black;
+#scoreBox {
+    height: 58px;
+    width: 83px;
+    background-color: rgba(231, 240, 248, 0.425);
     float: left;
+    margin-left: 20px;
+    border-radius: 4px;
 }

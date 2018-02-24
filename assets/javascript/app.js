@@ -1,14 +1,15 @@
-
-var myQuestions = ["What country won the most medals 2014", "Where was the olympics hosted 1992", "What country won most gold medals 2002?"];
-var optionsArray = [["Russia", "USA", "Norway"], ["Germany","Spain","France"], ["Italy", "Canada", "Norway"]];
-var correctAnswers = ["Russia", "France", "Norway"];
+//----Variables Related to questions, options & answers
+var myQuestions = ["What country won the most medals 2014", "Where was the olympics hosted 1992", "What country won most gold medals 2002?","When did mankind invet Curling?"];
+var optionsArray = [["Russia", "USA", "Norway"], ["Germany","Spain","France"], ["Italy", "Canada", "Norway"], ["1934", "1787", "1511"]];
+var correctAnswers = ["Russia", "France", "Norway", "1511"];
 var questionCounter = 0;
-var rightImgsrc = ["https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif", "https://media.giphy.com/media/3oD3YooLLYg0AfOPdK/giphy.gif", "https://media.giphy.com/media/3o6EhQhTudJRYRnO5G/giphy.gif"]
-var wrongImgsrc = ["https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif", "https://media.giphy.com/media/14q7wE0xIpQfgQ/giphy.gif", "https://media.giphy.com/media/1zSz5MVw4zKg0/giphy.gif"]
-var correctGuess = "";
-var wrongGuess = "";
+//----Variables related to response of answer
+var rightImgsrc = ["https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif", "https://media.giphy.com/media/3oD3YooLLYg0AfOPdK/giphy.gif", "https://media.giphy.com/media/3o6EhQhTudJRYRnO5G/giphy.gif", "https://media.giphy.com/media/xsF1FSDbjguis/giphy.gif"]
+var wrongImgsrc = ["https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif", "https://media.giphy.com/media/14q7wE0xIpQfgQ/giphy.gif", "https://media.giphy.com/media/1zSz5MVw4zKg0/giphy.gif","https://media.giphy.com/media/q2VTBpdMEDw64/giphy.gif"]
+var correctGuess = 0;
+var wrongGuess = 0;
 
-
+//----Game logic
 $("#start").click(newGame);
 
 function newGame() {
@@ -25,84 +26,75 @@ function newGame() {
     // fill the question variable with the text from myQuestions
     question.text(myQuestions[questionCounter]);
     
-    //create a html element of h4 with question var conent inside of the question div. 
+    //push the h4 question inseide of questions div in html
     $("#question").html(question);
 
     for (i = 0; i < optionsArray[questionCounter].length; i++){
         
-        // create new elememet inside of the var
+        // create new elememet inside of the var newP
         var newP = $("<p>");
         
-        // add class option to p element. 
+        // add class option to newP element. 
         newP.addClass("option");
        
-        // decide what content that is going to be reated inside the new element 
+        // decide what question that is going to be created inside the new element 
         newP.html(optionsArray[questionCounter][i]);
     
-        // This data attribute will be set equal to the array value.
+        // This data attribute sets the value of the newP to be the answer of the question. 
         newP.attr("data-option", optionsArray[questionCounter][i]);
         
-        // push the new created content to a parent object in HTML
+        // push the newP element inseide of optionsDiv in html
         $("#optionsDIv").append(newP);
     }
 
-    //when a option is clicked  
+    //Eventlistener for click on any of the alternatives
     $(".option").on("click", function() {
         //store the data value in choise
         var choise = ($(this).attr("data-option"));
-        // if the choise matches give a win. 
+        // if the choise matches correct answer 
         if (choise === correctAnswers[questionCounter]) {
-            //clears the options div of options 
+            //clears the options div of alternatives 
             $("#optionsDIv").empty();
-            //show status of guess
+            //show give feedback to user that they guessed correctly
             guess ("Well done the right answer is ")
-            //calls function of right response 
+            //calls function to show show image  
             Response(rightImgsrc[questionCounter]);
             // add one to questionCounter 
             questionCounter++;
             // add one to correct guess
             correctGuess++;
+            $("#rightGuess").html(correctGuess);
             // next question. after 5 seconds 
             setTimeout(newGame, 5000);
         }
        else if (choise !== correctAnswers[questionCounter]){
-            //clears the options div of options
+            //clears the options div of alternatives
             $("#optionsDIv").empty();
-            //show that they guessed wrong
+            //show give feedback to user that they guessed correctly 
             guess ("Nooo thats wrong! The right answer is ")
-            //show image they where wrong 
+            ///calls function to show show image  
             Response(wrongImgsrc[questionCounter]);
             // add one to questionCounter 
             questionCounter++;
             // add one to correct guess
             wrongGuess++;
+            $("#wrongGuess").html(wrongGuess);
             // next question. after 5 seconds 
             setTimeout(newGame, 5000);
         }
         if (questionCounter === myQuestions.length) {
             // call the result function. 
-           result(" Number of Right guess ", " Number of Wrong guess ")
-           $("#start").show();
+           questionCounter = 0;
+           correctGuess = 0;
+           wrongGuess = 0;
+           setTimeout(newGame, 5000);
         } 
     
     });
+}
+
 
 //-------Global-----Functions
-
-    // Show current score
-    function result (rightMessage, wrongMessage) {
-        //empty the div of current content
-       // $("#optionsDIv").empty();
-        //store a p in results var
-        var results = $("<p>");
-        //give css class score to results 
-        //results.addClass("score");
-        //Show the message for number of right and wrong guess 
-        results.html("<p>" + rightMessage +  correctGuess + "</p>" + "<p>" + wrongMessage + wrongGuess +"</p>");
-        // push it to the html div
-        $("#optionsDIv").append(results);
-
-    }
 
     // function to show response of guess 
     function guess (string) {
@@ -143,8 +135,3 @@ console.log(correctGuess);
 
     
   
-}
-
-/*$.each(drinkList, function(number, drink){
-        drinkDiv.append("<div>" + drink + "</div>")
-      });*/
