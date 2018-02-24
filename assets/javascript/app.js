@@ -3,7 +3,8 @@ var myQuestions = ["What country won the most medals 2014", "Where was the olymp
 var optionsArray = [["Russia", "USA", "Norway"], ["Germany","Spain","France"], ["Italy", "Canada", "Norway"]];
 var correctAnswers = ["Russia", "France", "Norway"];
 var questionCounter = 0;
-var imgsrc = ["https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif", "https://media.giphy.com/media/3oD3YooLLYg0AfOPdK/giphy.gif", "https://media.giphy.com/media/3o6EhQhTudJRYRnO5G/giphy.gif"]
+var rightImgsrc = ["https://media.giphy.com/media/qjfeT5XdAirCg/giphy.gif", "https://media.giphy.com/media/3oD3YooLLYg0AfOPdK/giphy.gif", "https://media.giphy.com/media/3o6EhQhTudJRYRnO5G/giphy.gif"]
+var wrongImgsrc = ["https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif", "https://media.giphy.com/media/14q7wE0xIpQfgQ/giphy.gif", "https://media.giphy.com/media/1zSz5MVw4zKg0/giphy.gif"]
 var correctGuess = "";
 var wrongGuess = "";
 
@@ -53,30 +54,73 @@ function newGame() {
         if (choise === correctAnswers[questionCounter]) {
             //clears the options div of options 
             $("#optionsDIv").empty();
+            //create a h4 for to disolay the sucsess text. 
+            var answer = $("<h4>")
+            // give it the value of the correct answer
+            answer.text(correctAnswers[questionCounter]);
+            // Print a sucsess message!
+            $("#question").html("Well done the right answer is " + correctAnswers[questionCounter]);
             //calls function of right response 
-            rightResponse(imgsrc[questionCounter]);
+            Response(rightImgsrc[questionCounter]);
             // add one to questionCounter 
             questionCounter++;
             // add one to correct guess
             correctGuess++;
             // next question. after 5 seconds 
-            setTimeout(newGame, 5000);
+            setTimeout(newGame, 3000);
+        }
+        else {
+            //clears the options div of options
+            $("#optionsDIv").empty();
+            //show that they guessed wrong
+            var answer = $("<h4>")
+            // give it the value of the correct answer
+            answer.text(correctAnswers[questionCounter]);
+            // Print a sucsess message!
+            $("#question").html("Nooo thats wrong! The right answer is " + correctAnswers[questionCounter]);
+            //show image they where wrong 
+             Response(wrongImgsrc[questionCounter]);
+            // add one to questionCounter 
+            questionCounter++;
+            // add one to correct guess
+            wrongGuess++;
+            // next question. after 5 seconds 
+            setTimeout(newGame, 3000);
+        }
+        if (questionCounter === myQuestions.length +1) {
+            //clears the options div of options
+            $("#optionsDIv").empty();
+            // create new elememet inside of the var
+        var score = $("<p>");
+        
+        // add class option to p element. 
+        score.addClass("score");
+       
+        // decide what content that is going to be reated inside the new element 
+        score.html(correctGuess + wrongGuess );
+    
+        
+        // push the new created content to a parent object in HTML
+        $("#optionsDIv").append(score);
+           
         }
     });
 
-    //function to show response if image was right. 
-    function rightResponse (imgsrc) {
+
+    //function to show imgae in options div section
+    function Response (imgsrc) {
+
         // create a new img element inside of var 
-        var rightShow = $("<img>");
+        var gifShow = $("<img>");
     
         // add class to img
-        rightShow.addClass("right-image");
+        gifShow.addClass("gif-image");
     
         // give img a source to get the image from 
-        rightShow.attr("src", imgsrc);
+        gifShow.attr("src", imgsrc);
 
         // inside the options div, show the image 
-        $("#optionsDIv").append(rightShow);
+        $("#optionsDIv").append(gifShow);
     }
     
   
