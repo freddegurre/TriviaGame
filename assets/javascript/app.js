@@ -16,13 +16,15 @@ var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
 //----Game logic
 
 function reset (resetGame) {
+    correctGuess = 0;
+    wrongGuess = 0;
+    questionCounter = 0; 
     $("#optionsDIv").empty();
+    $("#question").empty();
     $("#start").show();
     $("#wrongGuess").html(wrongGuess);
     $("#rightGuess").html(correctGuess);
-    correctGuess = 0;
-    wrongGuess = 0;
-    questionCounter = 0;
+   
 }
 
 $("#start").click(newGame);
@@ -81,8 +83,14 @@ function newGame() {
             // add one to correct guess
             correctGuess++;
             $("#rightGuess").html(correctGuess);
+            //check if there are more questions
+            if (questionCounter === myQuestions.length) {
+                setTimeout(reset, 5000);
+            }
+            else{
             // next question. after 5 seconds 
             setTimeout(newGame, 5000);
+            }
         }
        else if (choise !== correctAnswers[questionCounter]){
             audio1.play();
@@ -97,14 +105,16 @@ function newGame() {
             // add one to correct guess
             wrongGuess++;
             $("#wrongGuess").html(wrongGuess);
+            if (questionCounter === myQuestions.length) {
+                setTimeout(reset, 5000);
+            }
+            else{
             // next question. after 5 seconds 
             setTimeout(newGame, 5000);
+            }
+            
         }
-        //Important!! put thhis inside of checking if questions is right or wrong, with a new if else statment, only call new game once this has been run. 
-        if (questionCounter === myQuestions.length) {
-            // call the result function. 
-          reset();
-        } 
+    
     
     });
 }
