@@ -10,6 +10,17 @@ var correctGuess = 0;
 var wrongGuess = 0;
 
 //----Game logic
+
+function reset (resetGame) {
+    $("#optionsDIv").empty();
+    $("#start").show();
+    $("#wrongGuess").html(wrongGuess);
+    $("#rightGuess").html(correctGuess);
+    correctGuess = 0;
+    wrongGuess = 0;
+    questionCounter = 0;
+}
+
 $("#start").click(newGame);
 
 function newGame() {
@@ -84,15 +95,13 @@ function newGame() {
         }
         if (questionCounter === myQuestions.length) {
             // call the result function. 
-           questionCounter = 0;
-           correctGuess = 0;
-           wrongGuess = 0;
-           setTimeout(newGame, 5000);
+           setTimeout(resetGame, 1000);
         } 
     
     });
 }
 
+console.log("This is question counter" + questionCounter)
 
 //-------Global-----Functions
 
@@ -126,8 +135,7 @@ function newGame() {
   
 
       
-console.log(questionCounter);
-console.log(correctGuess);
+
 
 
       
