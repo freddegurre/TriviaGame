@@ -9,6 +9,10 @@ var wrongImgsrc = ["https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif", "ht
 var correctGuess = 0;
 var wrongGuess = 0;
 
+var audio1 = new Audio('Alarm_Clock.mp3');
+var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
+
+
 //----Game logic
 
 function reset (resetGame) {
@@ -62,8 +66,10 @@ function newGame() {
     $(".option").on("click", function() {
         //store the data value in choise
         var choise = ($(this).attr("data-option"));
+        
         // if the choise matches correct answer 
         if (choise === correctAnswers[questionCounter]) {
+            audio2.play();
             //clears the options div of alternatives 
             $("#optionsDIv").empty();
             //show give feedback to user that they guessed correctly
@@ -79,6 +85,7 @@ function newGame() {
             setTimeout(newGame, 5000);
         }
        else if (choise !== correctAnswers[questionCounter]){
+            audio1.play();
             //clears the options div of alternatives
             $("#optionsDIv").empty();
             //show give feedback to user that they guessed correctly 
@@ -93,9 +100,10 @@ function newGame() {
             // next question. after 5 seconds 
             setTimeout(newGame, 5000);
         }
+        //Important!! put thhis inside of checking if questions is right or wrong, with a new if else statment, only call new game once this has been run. 
         if (questionCounter === myQuestions.length) {
             // call the result function. 
-           setTimeout(resetGame, 1000);
+          reset();
         } 
     
     });
@@ -107,10 +115,13 @@ console.log("This is question counter" + questionCounter)
 
     // function to show response of guess 
     function guess (string) {
+       
         //show that they guessed wrong
         var answer = $("<h4>")
+       
         // give it the value of the correct answer
         answer.text(string + correctAnswers[questionCounter]);
+       
         // Print a sucsess message!
         $("#question").html(answer);
     }
