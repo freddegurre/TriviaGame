@@ -13,19 +13,52 @@ var audio1 = new Audio('Alarm_Clock.mp3');
 var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
 
 
-//----Game logic
+//----Functions
 
-function reset (resetGame) {
-    correctGuess = 0;
-    wrongGuess = 0;
-    questionCounter = 0; 
-    $("#optionsDIv").empty();
-    $("#question").empty();
-    $("#start").show();
-    $("#wrongGuess").html(wrongGuess);
-    $("#rightGuess").html(correctGuess);
-   
-}
+    function reset (resetGame) {
+        correctGuess = 0;
+        wrongGuess = 0;
+        questionCounter = 0; 
+        $("#optionsDIv").empty();
+        $("#question").empty();
+        $("#start").show();
+        $("#wrongGuess").html(wrongGuess);
+        $("#rightGuess").html(correctGuess);
+    
+    }
+
+ // function to show response of guess 
+    function guess (string) {
+       
+        //show that they guessed wrong
+        var answer = $("<h4>")
+       
+        // give it the value of the correct answer
+        answer.text(string + correctAnswers[questionCounter]);
+       
+        // Print a sucsess message!
+        $("#question").html(answer);
+    }
+
+
+    //function to show imgae in options div section
+    function Response (imgsrc) {
+
+        // create a new img element inside of var 
+        var gifShow = $("<img>");
+    
+        // add class to img
+        gifShow.addClass("gif-image");
+    
+        // give img a source to get the image from 
+        gifShow.attr("src", imgsrc);
+
+        // inside the options div, show the image 
+        $("#optionsDIv").append(gifShow);
+    }
+
+
+//----Game logic----------------
 
 $("#start").click(newGame);
 
@@ -72,19 +105,24 @@ function newGame() {
         // if the choise matches correct answer 
         if (choise === correctAnswers[questionCounter]) {
             audio2.play();
+            
             //clears the options div of alternatives 
             $("#optionsDIv").empty();
+            
             //show give feedback to user that they guessed correctly
             guess ("Well done the right answer is ")
+            
             //calls function to show show image  
             Response(rightImgsrc[questionCounter]);
-            // add one to questionCounter 
+            
+            // add one 
             questionCounter++;
-            // add one to correct guess
             correctGuess++;
             $("#rightGuess").html(correctGuess);
+
             //check if there are more questions
             if (questionCounter === myQuestions.length) {
+                //if not then reset game and start on first screen.
                 setTimeout(reset, 5000);
             }
             else{
@@ -94,18 +132,24 @@ function newGame() {
         }
        else if (choise !== correctAnswers[questionCounter]){
             audio1.play();
+           
             //clears the options div of alternatives
             $("#optionsDIv").empty();
+           
             //show give feedback to user that they guessed correctly 
             guess ("Nooo thats wrong! The right answer is ")
-            ///calls function to show show image  
+            
+            //calls function to show show image  
             Response(wrongImgsrc[questionCounter]);
-            // add one to questionCounter 
+           
+            // add one  
             questionCounter++;
-            // add one to correct guess
             wrongGuess++;
             $("#wrongGuess").html(wrongGuess);
+            
+            //check if there are more questions
             if (questionCounter === myQuestions.length) {
+                //if not then reset game and start on first screen.
                 setTimeout(reset, 5000);
             }
             else{
@@ -119,39 +163,7 @@ function newGame() {
     });
 }
 
-console.log("This is question counter" + questionCounter)
-
-//-------Global-----Functions
-
-    // function to show response of guess 
-    function guess (string) {
-       
-        //show that they guessed wrong
-        var answer = $("<h4>")
-       
-        // give it the value of the correct answer
-        answer.text(string + correctAnswers[questionCounter]);
-       
-        // Print a sucsess message!
-        $("#question").html(answer);
-    }
-
-
-    //function to show imgae in options div section
-    function Response (imgsrc) {
-
-        // create a new img element inside of var 
-        var gifShow = $("<img>");
-    
-        // add class to img
-        gifShow.addClass("gif-image");
-    
-        // give img a source to get the image from 
-        gifShow.attr("src", imgsrc);
-
-        // inside the options div, show the image 
-        $("#optionsDIv").append(gifShow);
-    }
+   
     
   
 
