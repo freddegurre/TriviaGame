@@ -41,7 +41,7 @@ var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
     }
 
 
-    //function to show imgae in options div section
+//function to show imgae in options div section
     function Response (imgsrc) {
 
         // create a new img element inside of var 
