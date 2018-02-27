@@ -43,6 +43,7 @@ var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
 
 //function to show imgae in options div section
     function Response (imgsrc) {
+    
 
         // create a new img element inside of var 
         var gifShow = $("<img>");
@@ -55,6 +56,8 @@ var audio2 = new Audio('Battle_Crowd_Celebrate_Stutter.mp3');
 
         // inside the options div, show the image 
         $("#optionsDIv").append(gifShow);
+    
+       
     }
 
 
@@ -105,7 +108,6 @@ function newGame() {
         // if the choise matches correct answer 
         if (choise === correctAnswers[questionCounter]) {
             audio2.play();
-            
             //clears the options div of alternatives 
             $("#optionsDIv").empty();
             
@@ -119,6 +121,11 @@ function newGame() {
             questionCounter++;
             correctGuess++;
             $("#rightGuess").html(correctGuess);
+            //stopSound
+            setTimeout(function(){
+                audio2.pause();
+           }, 5000)
+            
 
             //check if there are more questions
             if (questionCounter === myQuestions.length) {
@@ -146,6 +153,10 @@ function newGame() {
             questionCounter++;
             wrongGuess++;
             $("#wrongGuess").html(wrongGuess);
+            //stop sound
+            setTimeout(function(){
+                audio1.pause();
+           }, 5000)
             
             //check if there are more questions
             if (questionCounter === myQuestions.length) {
